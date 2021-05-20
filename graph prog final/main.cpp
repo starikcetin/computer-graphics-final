@@ -22,8 +22,12 @@
 #define NEAR_PLANE 0.01f
 #define FAR_PLANE  500.0f
 
-#define  TIMER_PERIOD  16 
+#define TIMER_PERIOD  16 
 #define MOUSE_SENSIVITY 4.0f
+
+#define TEX_RAINBOW 0
+#define TEX_WOOD 1
+#define TEX_WRAPPING 2
 
 /* Global Variables for Template File */
 bool upKey = false, downKey = false, rightKey = false, leftKey = false;
@@ -51,8 +55,30 @@ Camera cam(0, 0, 2, 0, 0, 0.1);
 Texture rainbow, wood, wrapping;
 
 bool specularEnable = true;
+bool rotateEnable = false;
+
+int curTex = TEX_RAINBOW;
 
 float angles = 0;
+
+Texture getCurrentTexture() {
+	switch (curTex) {
+		case TEX_WOOD: return wood;
+		case TEX_RAINBOW: return rainbow;
+		case TEX_WRAPPING: return wrapping;
+	}
+
+	return wood;
+}
+
+void bumpCurTex() {
+	if (curTex == TEX_WRAPPING) {
+		curTex = 0;
+	}
+	else {
+		curTex++;
+	}
+}
 
 void createPyramid() {
 	GLuint VboId;
@@ -246,7 +272,7 @@ void Reshape(int Width, int Height)
 
 void Pyramid(mat4 model) {
 	simple.uniform("model", model);
-	simple.uniformTexture("material.diffuse", 0, rainbow.getId());
+	simple.uniformTexture("material.diffuse", 0, getCurrentTexture().getId());
 	simple.uniform("maxOffset", 0.2f);
 	simple.uniform("material.shiny", 80.0f);
 	
@@ -283,7 +309,10 @@ void display(void)
 	
 	
 	glutSwapBuffers();
-	angles++;
+
+	if (rotateEnable) {
+		angles++;
+	}
 }
 
 
@@ -356,7 +385,11 @@ void onSpecialKeyup(int key, int x, int y)
 		else glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	} break;
 
-	case GLUT_KEY_F2: specularEnable = !specularEnable; break;
+	case GLUT_KEY_F2: rotateEnable = !rotateEnable; break;
+
+	case GLUT_KEY_F3: {
+		bumpCurTex();
+	} break;
 	}
 	// to refresh the window it calls display() function
 	// glutPostRedisplay();
