@@ -8,15 +8,21 @@ uniform mat4 view ;
 uniform mat4 model ;
 
 uniform float angle ;
+uniform float time ;
 uniform float maxOffset ;
 
 out vec2 texCoord ;
 out vec4 FragWorldPos ;
 out vec3 NormalWorld ;
 
+uniform bool animEnable ;
+
 void main() {
  vec3 newPos = aPos ;
-  // newPos.y = sin( 3 * radians(angle) + aPos.y) * maxOffset + aPos.y ; // non-linear transformation
+
+ if(animEnable) {
+	newPos.x = sin(time / 10.0) * maxOffset + aPos.x ; // non-linear transformation
+ }
 
  FragWorldPos = model * vec4(newPos, 1.0) ;  // vertex in world coordinate. ( since we calculate light color in world coordinate)
  NormalWorld = mat3(transpose(inverse(model))) * aNorm ;  // transformed normal vector in world coordinate system.

@@ -56,10 +56,12 @@ Texture rainbow, wood, wrapping;
 
 bool specularEnable = true;
 bool rotateEnable = false;
+bool animEnable = false;
 
 int curTex = TEX_RAINBOW;
 
 float angles = 0;
+float time = 0;
 
 Texture getCurrentTexture() {
 	switch (curTex) {
@@ -273,8 +275,11 @@ void Reshape(int Width, int Height)
 void Pyramid(mat4 model) {
 	simple.uniform("model", model);
 	simple.uniformTexture("material.diffuse", 0, getCurrentTexture().getId());
-	simple.uniform("maxOffset", 0.2f);
+	simple.uniform("maxOffset", 1.0f);
 	simple.uniform("material.shiny", 80.0f);
+
+	simple.uniform("time", time);
+	simple.uniform("animEnable", animEnable);
 	
 	// Draw mesh/surface
 	glBindVertexArray(PyramidVaoId); // sele
@@ -312,6 +317,10 @@ void display(void)
 
 	if (rotateEnable) {
 		angles++;
+	}
+
+	if (animEnable) {
+		time++;
 	}
 }
 
@@ -390,6 +399,9 @@ void onSpecialKeyup(int key, int x, int y)
 	case GLUT_KEY_F3: {
 		bumpCurTex();
 	} break;
+
+	case GLUT_KEY_F4: animEnable = !animEnable; break;
+
 	}
 	// to refresh the window it calls display() function
 	// glutPostRedisplay();
