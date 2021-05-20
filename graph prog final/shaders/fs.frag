@@ -18,8 +18,6 @@ uniform Light light ;
 
 struct Material {
     sampler2D diffuse ;
-    sampler2D alpha ;
-    sampler2D specular ;
     float shiny ;
 } ;
 
@@ -32,7 +30,6 @@ uniform bool specularEnable ;
 
 
 void main() {
-  if ( texture(material.alpha, texCoord).r > 0.9) discard ; // skip the current fragment as if it doesn't exist
   // fragColor = vec4(drawingColor, 1.0) * (vec4(1.0) - texture(diff, texCoord)); // texture(diff, texCoord) ; 
 
   // 1. Ambient component
@@ -49,11 +46,6 @@ void main() {
   vec3 R = reflect(-L, N) ;
   float specCoeff = pow(max(dot(V,R),0), material.shiny) ;
   vec3 specularColor = specCoeff * light.specular ;
-
-  // apply specular mapping ?
-  if ( specularEnable ) {
-     specularColor *= texture(material.specular, texCoord).rgb ;
-  }
 
   // Color of the fragment
   fragColor = vec4(ambientColor + diffuseColor + specularColor , 1.0) ; 
