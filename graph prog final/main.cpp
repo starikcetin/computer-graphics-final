@@ -122,9 +122,6 @@ void createPyramid() {
 		{ { 0.0f, -0.5f, 0.25f }, { 0.0f, 0.0f, 1.0f }, { 0.33f, 0.33f } },
 		{ { -0.5f, -0.5f, 0.25f }, { 0.0f, 0.0f, 1.0f }, { 0.17f, 0.33f } },
 
-
-
-
 		// Upper back 1
 		{ { -0.5f, 1.0f, -0.25f }, { -1.0f, 0.0f, 0.0f }, { 0.0f, 0.83f } },
 		{ { -0.5f, 1.0f, 0.25f }, { -1.0f, 0.0f, 0.0f }, { 0.17f, 0.83f } },
@@ -178,9 +175,6 @@ void createPyramid() {
 		{ { -0.5f, 0.5f, 0.25f }, { 0.0f, -1.0f, 0.0f }, { 0.33f, 0.66f } },
 		{ { 0.5f, 0.5f, -0.25f }, { 0.0f, -1.0f, 0.0f }, { 0.5f, 0.5f } },
 		{ { -0.5f, 0.5f, -0.25f }, { 0.0f, -1.0f, 0.0f }, { 0.33f, 0.5f } },
-
-
-
 
 		// Lower back 1
 		{ { -0.5f, -0.5f, -0.25f }, { -1.0f, 0.0f, 0.0f }, { 0.0f, 0.33f } },
@@ -275,7 +269,7 @@ void Reshape(int Width, int Height)
 void Pyramid(mat4 model) {
 	simple.uniform("model", model);
 	simple.uniformTexture("material.diffuse", 0, getCurrentTexture().getId());
-	simple.uniform("maxOffset", 1.0f);
+	simple.uniform("maxOffset", 0.5f);
 	simple.uniform("material.shiny", 80.0f);
 
 	simple.uniform("time", time);

@@ -21,7 +21,7 @@ void main() {
  vec3 newPos = aPos ;
 
  if(animEnable) {
-	newPos.x = sin(time / 10.0) * maxOffset + aPos.x ; // non-linear transformation
+	newPos.x = newPos.y * sin(time / 10.0) * maxOffset + aPos.x ; // non-linear transformation
  }
 
  FragWorldPos = model * vec4(newPos, 1.0) ;  // vertex in world coordinate. ( since we calculate light color in world coordinate)
