@@ -6,7 +6,7 @@ My final take-home exam for CTIS 489 Interactive Computer Graphics Programming.
 
 ## Run
 
-Follow the instructions here: https://github.com/starikcetin/ctis-489-final/releases/tag/build
+Follow the instructions here: https://github.com/starikcetin/computer-graphics-final/releases/tag/build
 
 ### Controls
 
