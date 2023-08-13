@@ -1,4 +1,4 @@
-# ctis-489-final
+# computer-graphics-final
 
 A simple demo built with OpenGL, GLUT, and C++.
 
